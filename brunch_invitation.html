@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Brunch Invitation 💌</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for romantic handwriting & serif styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blush: '#FFF0F3',
+                        roseGold: '#E8B4B8',
+                        softGold: '#D4AF37',
+                        deepRose: '#C85265',
+                        cream: '#FFFAFA',
+                        cardBg: '#FFFDF9',
+                    },
+                    fontFamily: {
+                        handwriting: ['Caveat', 'cursive'],
+                        serifHeader: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 10px 30px -10px rgba(200, 82, 101, 0.3)',
+                        'envelope': '0 20px 40px rgba(0,0,0,0.12), 0 5px 15px rgba(0,0,0,0.06)',
+                        'letter': '0 15px 35px rgba(180, 100, 110, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Keyframe Animations & Responsive CSS Magic */
+        body {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Soft Floating Bokeh Background Effect */
+        .bg-floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-particle {
+            position: absolute;
+            list-style: none;
+            opacity: 0.3;
+            animation: floatUp 12s infinite linear;
+            bottom: -50px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.4;
+            }
+            80% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Envelope 3D Origami Effect */
+        .perspective-1000 {
+            perspective: 1200px;
+        }
+
+        .envelope-container {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Flap 3D rotation */
+        .envelope-flap {
+            transform-origin: top center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 30;
+        }
+
+        .envelope-open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        /* Letter Slide Out Animation */
+        .letter-card {
+            transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, max-height 0.8s ease;
+            transform-origin: center bottom;
+        }
+
+        /* Pulsing Glow Animation for Seal */
+        @keyframes gentlePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5);
+            }
+            50% {
+                transform: scale(1.06);
+                box-shadow: 0 0 0 14px rgba(212, 175, 55, 0);
+            }
+        }
+
+        .pulse-seal {
+            animation: gentlePulse 2.2s infinite;
+        }
+
+        /* Custom Scrollbar for Letter Content if Screen is Small */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E8B4B8;
+            border-radius: 10px;
+        }
+
+        /* Envelope Texture & Floral Border Overlay */
+        .envelope-bg {
+            background-color: #FFF5F6;
+            background-image: radial-gradient(#F7D6D8 0.75px, transparent 0.75px), radial-gradient(#F7D6D8 0.75px, #FFF5F6 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        /* Envelope Flap Polygon Clip Paths */
+        .clip-flap {
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+        }
+        .clip-pocket {
+            clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 sm:p-6 bg-gradient-to-br from-blush via-cream to-[#FFEBEF] text-gray-800 font-sans relative">
+
+    <!-- Floating Background Decorative Hearts -->
+    <ul class="bg-floating-hearts" id="heartsContainer"></ul>
+
+    <!-- Main Container -->
+    <main class="relative z-10 w-full max-w-xl mx-auto flex flex-col items-center justify-center">
+
+        <!-- Top Header Badge -->
+        <div id="topHeader" class="text-center mb-6 transition-all duration-500 transform">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-deepRose text-xs sm:text-sm font-medium shadow-sm border border-roseGold/30">
+                <i class="fa-solid font-sharp fa-heart text-xs text-roseGold"></i> A Special Invitation For You
+            </span>
+        </div>
+
+        <!-- Interactive Envelope Wrapper -->
+        <div id="envelopeWrapper" class="perspective-1000 w-full relative flex flex-col items-center">
+
+            <!-- ENVELOPE FRONT CONTAINER -->
+            <div id="envelope" class="envelope-container w-full max-w-lg bg-white rounded-2xl shadow-envelope relative border border-roseGold/40 cursor-pointer overflow-hidden transition-all duration-500 hover:shadow-glow">
+                
+                <!-- Envelope Cover View (State 1: Closed) -->
+                <div id="closedEnvelopeContent" class="p-8 sm:p-12 flex flex-col items-center justify-center text-center min-h-[320px] sm:min-h-[360px] relative envelope-bg">
+                    
+                    <!-- Decorative Stamps & Postmarks in top right -->
+                    <div class="absolute top-4 right-4 flex items-center gap-2 opacity-80">
+                        <div class="border-2 border-dashed border-roseGold/60 rounded p-1 text-[10px] font-cinzel text-deepRose tracking-widest uppercase rotate-6 bg-white/60">
+                            Air Mail 💌
+                        </div>
+                        <div class="w-10 h-10 rounded-full border border-roseGold/40 flex items-center justify-center text-[9px] text-gray-400 font-cinzel rotate-[-12deg]">
+                            DSCM • 2026
+                        </div>
+                    </div>
+
+                    <!-- Envelope Front Text -->
+                    <div class="mt-4 space-y-3">
+                        <p class="font-handwriting text-2xl sm:text-3xl text-roseGold font-bold">You've got mail!</p>
+                        <h1 class="font-serifHeader text-2xl sm:text-3xl text-deepRose font-semibold tracking-wide">
+                            Official Brunch Invitation
+                        </h1>
+                        <p class="text-xs sm:text-sm text-gray-500 font-light max-w-xs mx-auto">
+                            Created with love, exclusively for my favorite person ❤️
+                        </p>
+                    </div>
+
+                    <!-- Wax Seal Button (Click Trigger) -->
+                    <div class="mt-8 relative group">
+                        <button id="openBtn" onclick="openEnvelope()" aria-label="Open Invitation" class="pulse-seal relative z-20 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-softGold via-[#F3E5AB] to-softGold rounded-full flex items-center justify-center shadow-lg border-2 border-white transition-transform duration-300 group-hover:scale-110 active:scale-95">
+                            <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-yellow-700/30 flex flex-col items-center justify-center text-deepRose">
+                                <i class="fa-solid fa-stamp text-lg sm:text-2xl text-amber-800"></i>
+                                <span class="text-[9px] font-cinzel font-bold text-amber-900 tracking-tighter mt-0.5">PRESS</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Hint Instruction -->
+                    <p class="mt-4 text-xs font-medium text-deepRose/70 tracking-wider uppercase animate-pulse">
+                        <i class="fa-solid fa-hand-pointer text-xs mr-1"></i> Tap seal to open
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- UNFOLDED LETTER CONTENT (State 2: Opened Letter Card) -->
+            <div id="letterCard" class="hidden letter-card w-full max-w-xl bg-cardBg rounded-2xl shadow-letter border-2 border-roseGold/30 p-6 sm:p-10 relative overflow-hidden my-2">
+                
+                <!-- Decorative Subtle Background Pattern & Corner Accents -->
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-blush/60 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-32 h-32 bg-roseGold/20 rounded-full blur-2xl pointer-events-none"></div>
+
+                <!-- Decorative Scalloped / Ribbon Header -->
+                <div class="text-center pb-6 border-b border-roseGold/20 relative">
+                    <span class="text-3xl text-roseGold opacity-40 absolute left-0 top-0">🌸</span>
+                    <span class="text-3xl text-roseGold opacity-40 absolute right-0 top-0">🥟</span>
+                    
+                    <span class="inline-block px-3 py-1 bg-blush text-deepRose rounded-full text-xs font-semibold tracking-widest uppercase mb-2">
+                        Special Delivery
+                    </span>
+                    <h2 class="font-serifHeader text-2xl sm:text-3xl text-deepRose font-bold">
+                        Official Brunch Invitation 💌✨
+                    </h2>
+                </div>
+
+                <!-- Main Letter Body -->
+                <div class="py-6 space-y-5 text-gray-700 leading-relaxed text-sm sm:text-base">
+                    
+                    <!-- To / From Header -->
+                    <div class="bg-blush/40 p-4 rounded-xl border border-roseGold/20 space-y-1 font-sans">
+                        <p class="flex items-center gap-2">
+                            <span class="font-bold text-deepRose min-w-[50px]">To:</span> 
+                            <span class="font-semibold text-gray-800">My Favorite Person ❤️</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <span class="font-bold text-deepRose min-w-[50px]">From:</span> 
+                            <span class="text-gray-700">The guy who can't wait to feed you</span>
+                        </p>
+                    </div>
+
+                    <!-- Personal Invitation Message -->
+                    <p class="font-sans text-gray-700 text-center sm:text-left text-base sm:text-lg">
+                        You are cordially invited to a brunch date at <strong class="text-deepRose font-semibold">Dubai Silicon Central Mall</strong>! Whether you're craving <strong class="text-deepRose font-semibold">Chinese Palace</strong> or literally anything else your heart (and stomach) desires, it's entirely your choice.
+                    </p>
+
+                    <!-- Event Details Box -->
+                    <div class="bg-white/80 p-5 rounded-2xl border border-roseGold/30 shadow-sm space-y-3 my-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blush flex items-center justify-center text-deepRose shrink-0 mt-0.5">
+                                <i class="fa-regular fa-clock text-base"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold">When</span>
+                                <span class="font-medium text-gray-800">Whenever you're ready to roll out 🕒✨</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blush flex items-center justify-center text-deepRose shrink-0 mt-0.5">
+                                <i class="fa-solid fa-location-dot text-base"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold">Where</span>
+                                <span class="font-medium text-gray-800">Dubai Silicon Central Mall 🛍️</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blush flex items-center justify-center text-deepRose shrink-0 mt-0.5">
+                                <i class="fa-solid fa-shirt text-base"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-gray-400 font-semibold">Dress Code</span>
+                                <span class="font-medium text-gray-800">Whatever you want to wear that makes you happy! 🥰</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Closing Salutation -->
+                    <div class="text-center pt-2">
+                        <p class="font-handwriting text-2xl sm:text-3xl text-deepRose font-bold">
+                            Let me know when you're ready, beautiful! 😘
+                        </p>
+                    </div>
+                </div>
+
+                <!-- RSVP Interactive Buttons Section -->
+                <div class="pt-4 border-t border-roseGold/20 flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    
+                    <!-- Option A: Primary RSVP Button -->
+                    <button onclick="handleRSVP('ready')" class="w-full sm:w-auto flex-1 bg-gradient-to-r from-deepRose to-roseGold hover:from-roseGold hover:to-deepRose text-white font-medium py-3 px-6 rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
+                        <span>I'm ready! Let's go! 🥂</span>
+                        <i class="fa-solid fa-heart text-white group-hover:scale-125 transition-transform"></i>
+                    </button>
+
+                    <!-- Option B: Secondary RSVP Button -->
+                    <button onclick="handleRSVP('wait')" class="w-full sm:w-auto bg-white hover:bg-blush text-gray-700 hover:text-deepRose font-medium py-3 px-5 rounded-xl border border-roseGold/40 shadow-sm transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Give me a few minutes 💄</span>
+                    </button>
+                </div>
+
+                <!-- Re-close envelope link -->
+                <div class="text-center mt-6">
+                    <button onclick="closeEnvelope()" class="text-xs text-gray-400 hover:text-roseGold transition-colors underline decoration-dotted">
+                        <i class="fa-solid fa-envelope text-[10px] mr-1"></i> Close envelope view
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Interactive Pop-up Modal for RSVP Responses -->
+    <div id="rsvpModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="modalContent" class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl border border-roseGold/40 transform scale-90 transition-transform duration-300 relative">
+            
+            <div id="modalIconContainer" class="w-16 h-16 rounded-full bg-blush mx-auto flex items-center justify-center text-deepRose text-2xl mb-4 shadow-inner">
+                <i id="modalIcon" class="fa-solid fa-glass-cheers"></i>
+            </div>
+
+            <h3 id="modalTitle" class="font-serifHeader text-xl font-bold text-gray-800 mb-2"></h3>
+            <p id="modalMessage" class="text-gray-600 text-sm leading-relaxed mb-6"></p>
+
+            <button onclick="closeModal()" class="w-full bg-deepRose hover:bg-roseGold text-white font-medium py-2.5 rounded-xl shadow transition-colors">
+                Close ❤️
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio Effects (Web Audio API synthesis for clean sound without external assets) -->
+    <script>
+        // Web Audio API for sound effects
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        // Play gentle chime sound when envelope opens
+        function playChimeSound() {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const now = audioCtx.currentTime;
+                
+                // Play 3 harmonic soft tones
+                [523.25, 659.25, 783.99].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now + (idx * 0.08));
+                    
+                    gain.gain.setValueAtTime(0.01, now + (idx * 0.08));
+                    gain.gain.exponentialRampToValueAtTime(0.15, now + (idx * 0.08) + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + (idx * 0.08) + 0.6);
+                    
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    
+                    osc.start(now + (idx * 0.08));
+                    osc.stop(now + (idx * 0.08) + 0.7);
+                });
+            } catch (e) {
+                console.log('Audio playback prevented or unsupported');
+            }
+        }
+
+        // Play subtle button click audio
+        function playPopSound() {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+                
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch (e) {}
+        }
+
+        // Floating background hearts generator
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const icons = ['❤️', '💖', '🌸', '✨', '🥟', '🥂'];
+            const heartCount = 15;
+
+            for (let i = 0; i < heartCount; i++) {
+                const li = document.createElement('li');
+                li.className = 'heart-particle';
+                li.innerText = icons[Math.floor(Math.random() * icons.length)];
+                li.style.left = `${Math.random() * 100}%`;
+                li.style.animationDelay = `${Math.random() * 10}s`;
+                li.style.animationDuration = `${8 + Math.random() * 8}s`;
+                li.style.fontSize = `${14 + Math.random() * 16}px`;
+                container.appendChild(li);
+            }
+        }
+
+        // Open Envelope Logic
+        function openEnvelope() {
+            playChimeSound();
+
+            const closedContent = document.getElementById('closedEnvelopeContent');
+            const letterCard = document.getElementById('letterCard');
+            const envelope = document.getElementById('envelope');
+
+            // Trigger visual opening sequence
+            envelope.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                envelope.classList.add('hidden');
+                letterCard.classList.remove('hidden');
+                
+                // Reflow transition
+                setTimeout(() => {
+                    letterCard.classList.add('opacity-100', 'scale-100');
+                    triggerMiniConfetti();
+                }, 50);
+            }, 400);
+        }
+
+        // Close Envelope Logic
+        function closeEnvelope() {
+            playPopSound();
+            const letterCard = document.getElementById('letterCard');
+            const envelope = document.getElementById('envelope');
+
+            letterCard.classList.remove('opacity-100', 'scale-100');
+            
+            setTimeout(() => {
+                letterCard.classList.add('hidden');
+                envelope.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    envelope.classList.remove('opacity-0', 'scale-95');
+                }, 50);
+            }, 400);
+        }
+
+        // Trigger subtle confetti burst on open
+        function triggerMiniConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 35,
+                    spread: 60,
+                    origin: { y: 0.6 },
+                    colors: ['#E8B4B8', '#D4AF37', '#FFF0F3', '#C85265']
+                });
+            }
+        }
+
+        // Trigger celebratory full confetti burst on "Ready" RSVP
+        function triggerFullConfetti() {
+            if (typeof confetti === 'function') {
+                const duration = 2.5 * 1000;
+                const animationEnd = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#E8B4B8', '#D4AF37', '#C85265']
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#E8B4B8', '#D4AF37', '#C85265']
+                    });
+
+                    if (Date.now() < animationEnd) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        }
+
+        // RSVP Button Action Handler
+        function handleRSVP(option) {
+            playPopSound();
+            const modal = document.getElementById('rsvpModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalIcon = document.getElementById('modalIcon');
+
+            if (option === 'ready') {
+                triggerFullConfetti();
+                modalIcon.className = "fa-solid fa-heart-pulse text-deepRose";
+                modalTitle.innerText = "Yay! Can't wait! 🎉";
+                modalMessage.innerText = "Let me know when to pick you up ❤️ Food & great times are waiting!";
+            } else {
+                modalIcon.className = "fa-solid fa-sparkles text-roseGold";
+                modalTitle.innerText = "Take your time! ✨";
+                modalMessage.innerText = "Take your time, beautiful! I'm ready whenever you are 🥰";
+            }
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-90');
+            modalContent.classList.add('scale-100');
+        }
+
+        // Close Modal Dialog
+        function closeModal() {
+            playPopSound();
+            const modal = document.getElementById('rsvpModal');
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-90');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Initialize background floating elements on window load
+        window.onload = function() {
+            createFloatingHearts();
+        };
+    </script>
+</body>
+</html>
